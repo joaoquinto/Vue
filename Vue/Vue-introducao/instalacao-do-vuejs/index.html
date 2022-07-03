@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    {{name}},{{faculdade.possui}},{{faculdade.curso}}
+  </div>
+  <script>
+    /* Iniciando o Vue.js com a funçao construtora Vue()
+    *  A constructor recebe um objeto chamado options, que contém as funções do Vue
+    * 
+    */
+    const vm = new Vue(options = {
+      /* Elemento que vai ser usado pelo vue */
+      el: "#app",
+      /* Variáeis reativas */
+      data: {
+        name: "André Rafael",
+        idade: 29,
+        faculdade: {
+          possui: "Sim",
+          curso: "Design"
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
