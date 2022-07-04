@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- Diretiva que permite imprimir tags html -->
+    <div v-html="link"></div>
+    <p>{{fruta}}</p>
+    <!-- Diretiva que permite imprimir textos -->
+    <p v-text="fruta"></p>
+    <!-- Diretiva que impede a reativdade do valor -->
+    <p v-once>Valor inicial R$ {{total - gasto}}</p>
+    <button @click="gasto += 5">Comprar Banana R$ 5</button>
+    <p>Total gasto R$ {{gasto}}</p>
+    <p>Valor final {{total - gasto}}</p>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        link: "<a href='https://origamid.com'>Origamid</a>",
+        fruta: "Banana",
+        total: 150,
+        gasto: 20
+      }
+    })
+  </script>
+</body>
+
+</html>

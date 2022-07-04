@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{empresas[0].nome}}</h2>
+    <ul>
+      <li v-for="produto in empresas[0].produtos">{{produto}}</li>
+    </ul>
+
+    <h2>{{empresas[1].nome}}</h2>
+    <ul>
+      <li v-for="produto in empresas[1].produtos">{{produto}}</li>
+    </ul>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        empresas: [
+          {
+            nome: "Microsoft",
+            produtos: ["Xbox", "Xcloud", "Bethesda", "Windows", "Azure"]
+          },
+          {
+            nome: "Google",
+            produtos: ["Chrome", "Stadia", "GPC", "Youtube", "Gmail"]
+          }
+        ]
+      }
+    })
+  </script>
+</body>
+
+</html>

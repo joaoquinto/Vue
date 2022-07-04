@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(curso, index) in cursos">{{index}}: {{curso}}</li>
+    </ul>
+
+    <ul>
+      <li v-for="estado in estados">
+        <div>
+          {{estado.nome}}
+          {{estado.populacao}}
+        </div>
+      </li>
+      <li v-for="numero in 5">{{numero}}</li>
+    </ul>
+    <ul>
+      <li v-for="(item,index) in lista">{{item}}</li>
+    </ul>
+    <button @click="removerItem">Remover</button>
+    <button @click="mudarItem">Mudar</button>
+    <button @click="adicionarItem('item 4')">Adicionar</button>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        lista: ["Item 1", "Item 2", "Item 3"],
+        cursos: ["HTML", "CSS", "JavaScript", "PHP", "WordPress"],
+        estados: {
+          sp: {
+            populacao: "45 milhões",
+            nome: "São Paulo"
+          },
+          mg: {
+            populacao: "21 milhões",
+            nome: "Minas Gerais"
+          },
+          rj: {
+            populacao: "17 milhões",
+            nome: "Rio de Janeiro"
+          }
+        }
+      },
+      methods: {
+        /* Note: A reatividade só acontece utilizando metódos como pop ou push*/
+        removerItem() {
+          this.lista.pop()
+        },
+        adicionarItem(value) {
+          this.lista.push(value)
+        },
+        /* Note: A reatividade só vai acontecer quando algum item sofrer        mudança de estado
+          isso pode ser corrigido com o metodo $set()
+
+          $set(this.lista,0,"banana") 
+          recebe:
+          lista a ser modificada
+          index do item a ser modificado
+          novo valor
+        */
+        mudarItem() {
+          this.lista[0] = "Banana"
+          /*this.$set(this.lista, 0, "banana")*/
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

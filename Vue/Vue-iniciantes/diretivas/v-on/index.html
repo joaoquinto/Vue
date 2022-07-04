@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- v-on: ou @
+     Diretiva para utilização de eventos javascript
+    -->
+    <button @click="ativo = !ativo">Toggle</button>
+    <div v-if="ativo">
+      <button @click="handleClick">Clique aqui</button>
+      <span>{{contador}}</span>
+    </div>
+    <div v-else>
+      Não existe elemento
+    </div>
+    <a href="#interno" @click.prevent.once="handleClick">Link</a>
+    <input type="text" @keyup="key">
+    <div v-if="teclas != null">
+      {{teclas}}
+    </div>
+  </div>
+
+  <script>
+    const vm = new Vue(options = {
+      el: "#app",
+      data: {
+        contador: 0,
+        ativo: true,
+        teclas: null
+      },
+      methods: {
+        handleClick(event) {
+          console.log(event);
+        },
+        key(event) {
+          console.log(this);
+          this.teclas = event.key
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li><a @click.prevent="handleApiApple" href="https://api.origamid.dev/stock/aapl/quote">Apple</a></li>
+      <li><a @click.prevent="handleApiGoogle" href="https://api.origamid.dev/stock/googl/quote">Google</a></li>
+      <li><a @click.prevent="handleApiAmazon" href="https://api.origamid.dev/stock/amzn/quote">Amazon</a></li>
+      <li><a @click.prevent="handleApiEbay" href="https://api.origamid.dev/stock/ebay/quote">Ebay</a></li>
+      <li><a @click.prevent="handleApiPayPal" href="https://api.origamid.dev/stock/pypl/quote">Paypal</a></li>
+    </ul>
+
+    <div>
+      <ul>
+        <li>{{apiResponse.apple.companyName}}</li>
+        <li>{{apiResponse.apple.latestPrice}}</li>
+        <li>{{apiResponse.apple.marketcap}}</li>
+      </ul>
+      <ul>
+        <li>{{apiResponse.google.companyName}}</li>
+        <li>{{apiResponse.google.latestPrice}}</li>
+        <li>{{apiResponse.google.marketcap}}</li>
+      </ul>
+      <ul>
+        <li>{{apiResponse.amazon.companyName}}</li>
+        <li>{{apiResponse.amazon.latestPrice}}</li>
+        <li>{{apiResponse.amazon.marketcap}}</li>
+      </ul>
+      <ul>
+        <li>{{apiResponse.ebay.companyName}}</li>
+        <li>{{apiResponse.ebay.latestPrice}}</li>
+        <li>{{apiResponse.ebay.marketcap}}</li>
+      </ul>
+      <ul>
+        <li>{{apiResponse.paypal.companyName}}</li>
+        <li>{{apiResponse.paypal.latestPrice}}</li>
+        <li>{{apiResponse.paypal.marketcap}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        apiResponse: {
+          apple: {
+            companyName: null,
+            latestPrice: null,
+            marketcap: null
+          },
+          google: {
+            companyName: null,
+            latestPrice: null,
+            marketcap: null
+          },
+          amazon: {
+            companyName: null,
+            latestPrice: null,
+            marketcap: null
+          },
+          ebay: {
+            companyName: null,
+            latestPrice: null,
+            marketcap: null
+          },
+          paypal: {
+            companyName: null,
+            latestPrice: null,
+            marketcap: null
+          }
+        }
+      },
+      methods: {
+        handleApiApple(event) {
+          const apiKey = event.currentTarget.href
+          const result = fetch(apiKey).then(response => {
+            return response.json()
+          }).then(body => {
+            this.apiResponse.apple.companyName = body.companyName
+            this.apiResponse.apple.latestPrice = body.latestPrice
+            this.apiResponse.apple.marketcap = body.marketCap
+          })
+        },
+        handleApiGoogle(event) {
+          const apiKey = event.currentTarget.href
+          const result = fetch(apiKey).then(response => {
+            return response.json()
+          }).then(body => {
+            this.apiResponse.google.marketcap = body.marketCap
+            this.apiResponse.google.companyName = body.companyName
+            this.apiResponse.google.latestPrice = body.latestPrice
+          })
+        },
+        handleApiAmazon(event) {
+          const apiKey = event.currentTarget.href
+          const result = fetch(apiKey).then(response => {
+            return response.json()
+          }).then(body => {
+            this.apiResponse.amazon.marketcap = body.marketCap
+            this.apiResponse.amazon.companyName = body.companyName
+            this.apiResponse.amazon.latestPrice = body.latestPrice
+          })
+        },
+        handleApiEbay(event) {
+          const apiKey = event.currentTarget.href
+          const result = fetch(apiKey).then(response => {
+            return response.json()
+          }).then(body => {
+            this.apiResponse.ebay.marketcap = body.marketCap
+            this.apiResponse.ebay.companyName = body.companyName
+            this.apiResponse.ebay.latestPrice = body.latestPrice
+          })
+        },
+        handleApiPayPal(event) {
+          const apiKey = event.currentTarget.href
+          const result = fetch(apiKey).then(response => {
+            return response.json()
+          }).then(body => {
+            this.apiResponse.paypal.companyName = body.companyName
+            this.apiResponse.paypal.latestPrice = body.latestPrice
+            this.apiResponse.paypal.marketcap = body.marketCap
+          })
+        }
+      }
+    }
+    )
+  </script>
+</body>
+
+</html>
