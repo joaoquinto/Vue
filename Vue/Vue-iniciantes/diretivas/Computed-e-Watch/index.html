@@ -1,56 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./vue.js"></script>
-    <title>Vue.js</title>
-  </head>
 
-  <body>
-    <div id="app">
-      <p>O preço final é: {{total}}</p>
-      <ul>
-        <li v-for="({marca,cor}) in carrosAzuis" :key="index">
-          {{marca}} {{cor}}
-        </li>
-      </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>O preço final é: {{total}}</p>
+    <ul>
+      <li v-for="({marca,cor},index) in carrosAzuis" :key="index">
+        {{marca}} {{cor}}
+      </li>
+    </ul>
+    <p>{{contador}}</p>
+    <button @click="contador++">adicionar</button>
+    <div>
+      <label for="cep">CEP</label>
+      <input v-model="cep" type="text" id="cep" maxlength="8" />
+      <h1>Bairro: {{dadosCep.bairro}}</h1>
+      <div v-for="(valor,key) in dadosCep">
+        {{key}}: {{valor}}
+      </div>
     </div>
+  </div>
 
-    <script>
-      const vm = new Vue({
-        el: "#app",
-        data: {
-          preco: 59,
-          desconto: 0.1,
-          carros: [
-            {
-              marca: "VW",
-              cor: "Azul",
-            },
-            {
-              marca: "Ford",
-              cor: "Preto",
-            },
-            {
-              marca: "Tesla",
-              cor: "Azul",
-            },
-          ],
-        },
-        /* utilizado para modificar dados no html, com javascript */
-        computed: {
-          total() {
-            return `R$${this.preco - this.preco * this.desconto}`;
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        dadosCep: {},
+        logradouro: "",
+        cep: "",
+        contador: 0,
+        preco: 59,
+        desconto: 0.1,
+        carros: [
+          {
+            marca: "VW",
+            cor: "Azul",
           },
-          carrosAzuis() {
-            const filtro = this.carros.filter(({ cor }) => cor === "Azul");
+          {
+            marca: "Ford",
+            cor: "Preto",
+          },
+          {
+            marca: "Tesla",
+            cor: "Azul",
+          },
+        ],
 
-            return filtro;
-          },
+      },
+      /* utilizado para modificar dados no html, com javascript */
+      computed: {
+        total() {
+          return `R$${this.preco - this.preco * this.desconto}`;
         },
-      });
-    </script>
-  </body>
+        carrosAzuis() {
+          const filtro = this.carros.filter(({ cor }) => cor === "Azul");
+
+          return filtro;
+        },
+      },
+      /* Watch é utilizado para ficar assistindo uma propriedade e fazer uma ação sem que houver reatividade
+      Obs: O nome do metodo tem que ser o mesmo da váriavel que está sendo escutada
+      */
+      watch: {
+        contador() {
+          console.log(this.contador);
+        },
+        cep(valor) {
+          const link = `https://viacep.com.br/ws/${valor}/json/`
+          if (valor.length === 8) {
+            fetch(link)
+              .then(response => response.json())
+              .then(body => {
+                this.dadosCep = body
+              }).catch(Error)
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
 </html>
