@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="fullName">
+        <form action="">
+          <label for="Nome">Nome</label>
+          <input type="text" v-model="nome" id="Nome" />
+          <label for="Sobrenome">Sobrenome</label>
+          <input type="text" name="" id="Sobrenome" v-model="sobreNome" />
+        </form>
+        <span v-if="nome && sobreNome != null">Seu nome é: {{fullName}}</span>
+      </div>
+      <div class="country">
+        <form action="">
+          <label for="">Escolha o pais</label>
+          <button @click.prevent="getPais">Obter paises</button>
+          <select name="" id="" v-model="paisSelecionado">
+            <option
+              v-for="(item, index) in pais"
+              :key="index"
+              :value="item.name"
+            >
+              {{item.name}}
+            </option>
+          </select>
+          <p>{{paisSelecionado}}</p>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          nome: null,
+          sobreNome: null,
+          pais: null,
+          paisSelecionado: null,
+          capital: null
+        },
+        methods: {
+          getPais() {
+            fetch("https://restcountries.com/v2/all")
+              .then((response) => response.json())
+              .then((body) => {
+                this.pais = body;
+              });
+          },
+        },
+        computed: {
+          fullName() {
+            return `${this.nome} ${this.sobreNome}`;
+          },
+        },
+        watch: {
+          paisSelecionado(valor) {
+            this.capital = this.pais.find(pais=>{
+              pais.name === valor
+            })
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
