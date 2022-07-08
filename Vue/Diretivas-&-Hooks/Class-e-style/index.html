@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!--É necessário utilizar um array para passar mais de uma classe -->
+      <p :class="[cor, background]">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
+        minima cumque a aperiam minus qui dolor eaque eveniet dignissimos illum
+        hic cupiditate molestiae laboriosam, iure, veritatis, quo explicabo
+        expedita reprehenderit.
+      </p>
+      <!-- Insere a referencia do objeto como classe, se a propriedade for true -->
+      <p :class="{ativo: estaAtivo, hover: hovered}">Mostrar Texto</p>
+      <p
+        :style="{background: bgColor,color: textColor, fontSize: tamanho + 'px'}"
+      >
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis
+        assumenda inventore excepturi voluptatem distinctio ullam atque eaque
+        accusantium quisquam, et fugit, nulla itaque aspernatur ad numquam hic
+        blanditiis id commodi?
+      </p>
+      <button @click="tamanho+=5">Aumentar o tamanho em 5px</button>
+      <button v-if="tamanho > 20" @click="tamanho-=5">
+        diminuir o tamanho em 5px
+      </button>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          background: 'vermelho',
+          cor: 'verde',
+          estaAtivo: true,
+          hovered: true,
+          bgColor: 'tomato',
+          textColor: '#fff',
+          tamanho: 20,
+        },
+      });
+    </script>
+    <style>
+      .vermelho {
+        background-color: red;
+      }
+      .azul {
+        color: blue;
+      }
+      .verde {
+        color: green;
+      }
+      .ativo {
+        background-color: red;
+      }
+    </style>
+  </body>
+</html>
