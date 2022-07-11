@@ -7,6 +7,7 @@ const vm = new Vue({
     carrinho: [],
     mensagemAlerta: "Item adicionado",
     alertaAtivo: false,
+    carrinhoAtivo: false,
   },
   /* metodos que podem ser utilizados para formatações textuais */
   filters: {
@@ -45,6 +46,9 @@ const vm = new Vue({
     },
     fecharModal({ target, currentTarget }) {
       if (target === currentTarget) this.produto = false;
+    },
+    clickForaCarrinho({ target, currentTarget }) {
+      if (target === currentTarget) this.carrinhoAtivo = false;
     },
     abrirModal(id) {
       this.fetchProduto(id);
