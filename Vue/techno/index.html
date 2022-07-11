@@ -66,6 +66,9 @@
           </div>
         </div>
       </section>
+      <div class="alerta" :class="{ativo: alertaAtivo}" >
+        <p class="alerta_mensagem">{{mensagemAlerta}}</p>
+      </div>
     </div>
     <!-- importação da instância Vue -->
     <script src="app.js"></script>

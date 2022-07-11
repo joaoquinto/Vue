@@ -5,6 +5,8 @@ const vm = new Vue({
     produtos: [],
     produto: false,
     carrinho: [],
+    mensagemAlerta: "Item adicionado",
+    alertaAtivo: false,
   },
   /* metodos que podem ser utilizados para formatações textuais */
   filters: {
@@ -55,6 +57,7 @@ const vm = new Vue({
       this.produto.estoque--;
       const { id, nome, preco } = this.produto;
       this.carrinho.push({ id, nome, preco });
+      this.alerta(`${nome} adicionado`);
     },
     removerItem(index) {
       this.carrinho.splice(index, 1);
@@ -64,15 +67,34 @@ const vm = new Vue({
         this.carrinho = JSON.parse(window.localStorage.carrinho);
       }
     },
+    alerta(mensagem) {
+      this.mensagemAlerta = mensagem;
+      this.alertaAtivo = true;
+      setTimeout(() => {
+        this.alertaAtivo = false;
+      }, 1500);
+    },
+    router() {
+      const hash = document.location.hash;
+      if (hash) {
+        this.fetchProduto(hash.replace("#", ""));
+      }
+    },
   },
   created() {
     /* Faz a requisição de produtos sempre que o Vue é criado */
     this.fetchProdutos();
     this.checarLocalStorage();
+    this.router();
   },
   watch: {
     carrinho(valor) {
       window.localStorage.carrinho = JSON.stringify(this.carrinho);
+    },
+    produto() {
+      document.title = this.produto.nome || "Techno";
+      const hash = this.produto.id || "";
+      history.pushState(null, null, `#${hash}`);
     },
   },
 });
