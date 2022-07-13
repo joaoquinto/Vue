@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <form action="">
+        <div>
+          <label for="nome">Nome:</label>
+          <input type="text" name="nome" id="nome" v-model="user.nome" />
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" name="email" id="email" v-model="user.email" />
+        </div>
+        <div>
+          <label for="telefone">Telefone:</label>
+          <input
+            type="tel"
+            name="telefone"
+            id="telefone"
+            v-model="user.telefone"
+          />
+        </div>
+        <label for="mensagem">Mensagem:</label>
+        <div>
+          <textarea
+            name="mensagem"
+            id="mensagem"
+            cols="71"
+            rows="10"
+            v-model="user.mensagem"
+          ></textarea>
+        </div>
+        <button
+          v-if="user.mensagem.length > 30"
+          @click.prevent="enviarMensagem"
+        >
+          Enviar Mensagem
+        </button>
+      </form>
+
+      <div v-show="mensagemEnviada">
+        <h1>A mensagem foi enviada</h1>
+        <p>Veja o escopo da mensagem</p>
+        <ul>
+          <li v-for="(item,key,index) in user" :key="index">
+            {{key}}: {{item}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          mensagemEnviada: false,
+          user: {
+            nome: null,
+            email: null,
+            telefone: null,
+            mensagem: "",
+          },
+        },
+        methods: {
+          enviarMensagem() {
+            this.mensagemEnviada != true
+              ? (this.mensagemEnviada = true)
+              : (this.mensagemEnviada = false);
+          },
+        },
+      });
+    </script>
+    <style>
+      input {
+        width: 50%;
+        margin-bottom: 30px;
+      }
+    </style>
+  </body>
+</html>

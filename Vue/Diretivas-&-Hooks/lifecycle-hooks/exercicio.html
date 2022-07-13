@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="(dado,key,index) in github" :key="index">
+          {{key}}: {{dado}}
+        </li>
+      </ul>
+      <img
+        :src="github.avatar_url"
+        style="border-radius: 50%; width: 100px"
+        :alt="github.name"
+        srcset=""
+      />
+      <button @click="contador++">n°:{{contador}}</button>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          github: {},
+          contador: 0,
+        },
+        methods: {
+          puxarGithub() {
+            fetch("https://api.github.com/users/joaoquinto")
+              .then((response) => response.json())
+              .then((body) => {
+                this.github = body;
+              });
+          },
+          changeTitle() {
+            const title = document.querySelector("title");
+            if (this.contador > 0) {
+              title.innerHTML = this.contador;
+            }
+          },
+        },
+        created() {
+          this.puxarGithub();
+        },
+        updated() {
+          this.changeTitle();
+        },
+      });
+    </script>
+  </body>
+</html>

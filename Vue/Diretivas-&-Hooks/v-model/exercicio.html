@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>Criador de botões</h1>
+      <form action="">
+        <div>
+          <label for="width">Informe o width do botão</label>
+          <input
+            type="text"
+            name="width"
+            id="width"
+            v-model="styleButton.width"
+          />
+        </div>
+        <div>
+          <label for="height">Informe o height do botão</label>
+          <input
+            type="text"
+            name="height"
+            id="height"
+            v-model="styleButton.height"
+          />
+        </div>
+        <div>
+          <label for="fontSize">Informe o fontSize do botão</label>
+          <input
+            type="text"
+            name="fontSize"
+            id="fontSize"
+            v-model="styleButton.fontSize"
+          />
+        </div>
+        <div>
+          <label for="fontFamily">Informe a fontFamily do botão</label>
+          <input
+            type="text"
+            name="fontFamily"
+            id="fontFamily"
+            v-model="styleButton.fontFamily"
+          />
+        </div>
+        <div>
+          <label for="textAlign">Informe o textAlign do botão</label>
+          <input
+            type="text"
+            name="textAlign"
+            id="textAlign"
+            v-model="styleButton.textAlign"
+          />
+        </div>
+        <div>
+          <label for="background">Informe o background do botão</label>
+          <input
+            type="color"
+            name="background"
+            id="background"
+            v-model="styleButton.background"
+          />
+        </div>
+        <div>
+          <label for="color">Informe o color do botão</label>
+          <input
+            type="color"
+            name="color"
+            id="color"
+            v-model="styleButton.color"
+          />
+        </div>
+        <div>
+          <label for="borderRadius">Informe o borderRadius do botão</label>
+          <input
+            type="text"
+            name="borderRadius"
+            id="borderRadius"
+            v-model="styleButton.borderRadius"
+          />
+        </div>
+        <div>
+          <label for="buttonContent">Informe o conteúdo do botão</label>
+          <input
+            type="text"
+            name="buttonContent"
+            id="buttonContent"
+            v-model="buttonContent"
+          />
+        </div>
+      </form>
+      <button
+        v-if="buttonContent != null && buttonContent.length > 0"
+        v-text="buttonContent"
+        :style="styleButton"
+      ></button>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          buttonContent: null,
+          styleButton: {
+            width: null,
+            height: null,
+            fontSize: null,
+            fontFamily: null,
+            background: null,
+            color: null,
+            borderRadius: null,
+            textAlign: null,
+          },
+        },
+      });
+    </script>
+    <style>
+      div + div {
+        margin-top: 20px;
+      }
+      button {
+        margin-top: 20px;
+      }
+    </style>
+  </body>
+</html>

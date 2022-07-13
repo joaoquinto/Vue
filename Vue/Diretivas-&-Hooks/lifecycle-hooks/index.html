@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+
+  <body>
+    <div id="app">
+      {{mensagem}}
+      <ul>
+        <li v-for="(dado,key,index) in github" :key="index">
+          {{key}}: {{dado}}
+        </li>
+      </ul>
+      <img
+        :src="github.avatar_url"
+        style="border-radius: 50%; width: 100px"
+        :alt="github.name"
+        srcset=""
+      />
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          mensagem: "Essa é uma mensagem",
+          github: {},
+        },
+        methods: {
+          puxarGithub() {
+            fetch("https://api.github.com/users/joaoquinto")
+              .then((response) => response.json())
+              .then((body) => {
+                this.github = body;
+              });
+          },
+        },
+        created() {
+          this.puxarGithub();
+          console.log("created "+this.mensagem);
+          console.log("created "+this.$el);
+        },
+        beforeCreate() {
+          console.log("beforeCreate "+this.mensagem);
+          console.log("beforeCreate "+this.$el);
+        },
+        beforeMount() {
+          console.log("beforeMount "+this.$el);
+          console.log("beforeMount " + this.mensagem);
+        },
+        mounted() {
+          console.log("mounted "+this.mensagem);
+          console.log("mounted "+this.$el);
+        },
+      });
+    </script>
+  </body>
+</html>
