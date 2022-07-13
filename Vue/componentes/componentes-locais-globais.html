@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Componente Global - Local</title>
+    <script src="vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <componente-global></componente-global>
+      <componente-local></componente-local>
+    </div>
+
+    <script>
+      Vue.component("componente-global", {
+        template: `<p>Isso é um componente global</p>`,
+      });
+
+      const vm = new Vue({
+        el: "#app",
+        /* Instânciando os componentes locais*/
+        components: {
+          ComponenteLocal: {
+            name: "ComponenteLocal",
+            template: `<p>Isso é um componente Local</p>`,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
