@@ -15,29 +15,62 @@
 
         O atributo deve ser passado com o mesmo nome do props declarado,
         O dado pode ser passado com v-bind:frutas, :frutas para atributos dinâmicos ou sem : para informações estáticas
-      
       -->
-      <lista-produtos :frutas="lista" titulo="Esse é o titulo"></lista-produtos>
+      <lista-produtos
+        :frutas="lista"
+        titulo="Veja as suas frutas"
+      ></lista-produtos>
     </div>
 
     <script>
-      const ListaProdutos = {
-        name: "ListaProdutos",
-        /* Registro do props */
-        props: ["frutas", "titulo"],
+      const ItemProduto = {
+        name: "ItemProduto",
+      /*   props: ["nomeFruta"], */
+        /* Validação de dados dos props
+        A validação irá retornar um erro se o tipo de dado for incorreto
+        */
+        props: {
+          nome: String,
+          quantidade: Number,
+          nomeFruta: Array,
+        },
         template: `
         <ul>
-          /* Acesso da props */
-          <li>{{titulo}}</li>  
-          <li>{{frutas}}</li>  
-          <li>Teste</li>  
-        </ul>`,
+          <h2>{{nome}}</h2>
+          <li 
+            v-for="(fruta,index) in nomeFruta"
+            :key='index'
+            >
+            {{fruta}} {{quantidade}}
+           </li>
+        </ul> `,
+      };
+      const ListaProdutos = {
+        name: "ListaProdutos",
+        data() {
+          return {
+            nome: "Frutas do seu zé"
+          }
+        },
+        /* Servem para passar dados do data, para o componente */
+        /* Registro do props pode ser um array ou um objeto ou um único prop */
+        props: ["frutas", "titulo"],
+        /* Acesso da props */
+        template: `
+        <div>
+          <h1 v-text="titulo"></h1>
+           <item-produto :nome="nome"  :nomeFruta="frutas" :quantidade="20"></item-produto>
+        </div>
+        `,
+        components: {
+          ItemProduto,
+        },
       };
 
       const vm = new Vue({
         el: "#app",
         data: {
-          lista: ["Banana", "Laranja", "Uva"],
+          lista: ["Banana", "Laranja", "Uva", "Maçã"],
         },
         components: {
           ListaProdutos,
