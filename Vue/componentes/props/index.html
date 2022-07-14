@@ -9,6 +9,40 @@
   </head>
 
   <body>
-    <div id=""></div>
+    <div id="app">
+      <!--
+        Passando valores para as props
+
+        O atributo deve ser passado com o mesmo nome do props declarado,
+        O dado pode ser passado com v-bind:frutas, :frutas para atributos dinâmicos ou sem : para informações estáticas
+      
+      -->
+      <lista-produtos :frutas="lista" titulo="Esse é o titulo"></lista-produtos>
+    </div>
+
+    <script>
+      const ListaProdutos = {
+        name: "ListaProdutos",
+        /* Registro do props */
+        props: ["frutas", "titulo"],
+        template: `
+        <ul>
+          /* Acesso da props */
+          <li>{{titulo}}</li>  
+          <li>{{frutas}}</li>  
+          <li>Teste</li>  
+        </ul>`,
+      };
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          lista: ["Banana", "Laranja", "Uva"],
+        },
+        components: {
+          ListaProdutos,
+        },
+      });
+    </script>
   </body>
 </html>
