@@ -7,9 +7,8 @@ export default {
   },
   template: `
    <ul>
-      <li
-       for="(dado, {symbol}) in empresa" :key="symbol">
-       {{dado}}
+      <li v-for="(dado,{symbol}) in empresa" :key="symbol">
+      {{dado}}
       </li>
    </ul>
   `,
