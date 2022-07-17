@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- Utilizando o custom event -->
+      <meu-botao @origamid="mostrarMensagem"></meu-botao>
+      {{valorFilho}}
+    </div>
+
+    <script>
+      const MeuBotao = {
+        name: "MeuBotao",
+        data() {
+          return {
+            nome: "João",
+          };
+        },
+        template: `<button @click="handleClick">Clique</button>`,
+        methods: {
+          handleClick() {
+            /* Cria o evento personalizado 
+              obs: Também serve para enviar dados de um componente filho para o pai
+              param 1: Nome do evento
+              parm 2: variável opcinal 
+            */
+            this.$emit("origamid", this.nome);
+          },
+        },
+      };
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          valorFilho: null,
+        },
+        components: {
+          MeuBotao,
+        },
+        methods: {
+          /* value vem do segundo paramentro do emit */
+          /* Função que é passada no custom event */
+          mostrarMensagem(value) {
+           this.valorFilho = value
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
