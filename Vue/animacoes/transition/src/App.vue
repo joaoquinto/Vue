@@ -1,30 +1,22 @@
 <template>
   <div id="app">
-    <button @click="ativo = !ativo">clique</button>
-    <transition name="fade">
-      <h1 v-if="ativo">Serviços</h1>
-    </transition>
+    <transition-vue />
+    <modal-vue />
   </div>
 </template>
 
 <script>
+import ModalVue from "./components/Modal.vue";
+import TransitionVue from "./components/Transition.vue";
+
 export default {
   name: "App",
-  data() {
-    return {
-      ativo: false,
-    };
+  components: {
+    TransitionVue,
+    ModalVue,
   },
 };
 </script>
 
 <style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>
