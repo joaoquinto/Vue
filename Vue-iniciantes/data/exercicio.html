@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <!-- Acerte o código abaixo -->
+  <div id="app">
+    {{empresa}}, {{produto}}
+  </div>
+  <p id="quadrado">O perímetro do seu quadrado é {{perimetro()}} e a aréa é {{area()}}</p>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        empresa: "Apple",
+        produto: "iPhone",
+      }
+    });
+
+    const vm1 = new Vue(options = {
+      el: "#quadrado",
+      data: {
+        lados: 4,
+        perimetro() {
+          return this.lados * 4
+        },
+        area() {
+          return this.lados * this.lados
+        }
+      }
+    })
+  </script>
+
+  <!-- Crie uma instância que mostre
+baseado no valor do lado do quadrado
+o seu perímetro (lX4) e área (lXl).
+O lado do quadrado deve ser um estado reativo -->
+
+
+
+</body>
+
+</html>

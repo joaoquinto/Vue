@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <div v-if="total == 0 || total > 0">
+      {{total}}
+    </div>
+    <div v-else>
+      Total é menor que zero
+    </div>
+    <button @click="incrementar">incrementar</button>
+    <button @click="descrementar">descrementar</button>
+    <p>{{instrumento}}</p>
+    <button @click="mudarNome('Violão')">Violão</button>
+    <button @click="verEvento">Evento</button>
+  </div>
+
+  <script>
+    const vm = new Vue(options = {
+      el: "#app",
+      data: {
+        total: 0,
+        instrumento: ""
+      },
+      methods: {
+        incrementar() {
+          this.total++
+          this.teste()
+        },
+        descrementar() {
+          this.total--
+        },
+        mudarNome(instrumento) {
+          this.instrumento = instrumento
+        },
+        verEvento(event) {
+          console.log(event);
+        },
+        teste() {
+          console.log("method ativado");
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

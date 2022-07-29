@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>{{titulo}}</h1>
+    <p>{{conteudo}}</p>
+    <p>{{lado * lado}}</p>
+    <!-- Utilizando diretiva v-if retira do DOM
+        pode ser usado o v-show para só deixar ela invisivel
+    -->
+    <div v-if="comprou" :style="{background:cor}">
+      <!-- Template aceita ternário, porém não aceita nada complicado como for ou if else -->
+      <p>{{comprou ? "Sim ele comprou!!" : "Não efetuou a compra!" }}</p>
+      <!-- Utilizando diretivas de href 
+        v-bind permite utilizar variáveis reativas nos atributos html
+      -->
+      <a v-bind:href="href">{{href}}</a>
+      <!-- Atalho para a diretiva -->
+      <a :href="comprou ? href : ''">{{href}}</a>
+
+      <input v-model="cor" type="color">
+      {{cor}}
+    </div>
+  </div>
+  <script>
+    const vm = new Vue(optipons = {
+      el: "#app",
+      data: {
+        titulo: "Curso de JavaScript",
+        conteudo: "Este é o curso de Vue.js",
+        lado: 5,
+        comprou: true,
+        href: "https:origamid.com",
+        cor: "pink"
+      }
+    })
+  </script>
+</body>
+
+</html>

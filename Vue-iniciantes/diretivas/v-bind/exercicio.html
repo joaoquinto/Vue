@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <!--
+  Utilizando as API's
+  https://api.origamid.dev/stock/aapl/quote
+  https://api.origamid.dev/stock/googl/quote
+
+  - Compare o marketCap (valor de
+  mercado) entre ambas.
+
+  - Mostre o nome das empresas e o valor
+  na interace (companyName e marketCap).
+
+  - Mude a cor para verde o nome da empresa com
+  maior marketCap e vermelho a com menor.
+-->
+
+  <style>
+    .verde {
+      color: green;
+    }
+
+    .vermelho {
+      color: red;
+    }
+  </style>
+
+  <div id="app">
+
+    <ul :class="marketCap0 > marketCap1 ? cores[0] : cores[1]">
+      <li><button @click="ativarGoogle()">Google</button></li>
+      <li>Company Name: {{companyName0}}</li>
+      <li>Market Cap: {{marketCap0}}</li>
+    </ul>
+    <ul :class="marketCap1 > marketCap0 ? cores[0] : cores[1]">
+      <li><button @click=" ativarApple()">Apple</button></li>
+      <li>Company Name: {{companyName1}}</li>
+      <li>Market Cap: {{marketCap1}}</li>
+    </ul>
+
+  </div>
+
+  <script>
+    const vm = new Vue(options = {
+      el: "#app",
+      data: {
+        companyName0: null,
+        marketCap0: null,
+        companyName1: null,
+        marketCap1: null,
+        compare: null,
+        api: ["https://api.origamid.dev/stock/googl/quote", "https://api.origamid.dev/stock/aapl/quote"],
+        cores: ["verde", "vermelho"]
+      },
+      methods: {
+        analyze0(parm) {
+          const api = fetch(parm)
+            .then(response => response.json())
+            .then(body => {
+              this.companyName0 = body.companyName
+              this.marketCap0 = body.marketCap
+            })
+        },
+        analyze1(parm) {
+          const api = fetch(parm)
+            .then(response => response.json())
+            .then(body => {
+              this.companyName1 = body.companyName
+              this.marketCap1 = body.marketCap
+            })
+        },
+        ativarGoogle() {
+          this.analyze0(this.api[0])
+        },
+        ativarApple() {
+          this.analyze1(this.api[1])
+        },
+        compareMarketCap() {
+          if (this.marketCap0 > this.marketCap1) {
+            this.compare = true
+          } else {
+            this.compare = false
+          }
+          return this.compare
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
